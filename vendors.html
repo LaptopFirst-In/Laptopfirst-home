@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laptopfirst — The Complete OS for Laptop Rental Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #1a1a6e;
+    --indigo: #3730c8;
+    --teal:   #0ea5a0;
+    --green:  #1a8a5a;
+    --light:  #f5f5fb;
+    --border: #e4e4f0;
+    --muted:  #6b6b8a;
+    --dark:   #0f0f3a;
+    --white:  #ffffff;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 64px; height: 68px;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-size: 1.15rem; font-weight: 800; color: var(--indigo);
+    letter-spacing: -0.3px; text-decoration: none;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 40px;
+  }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500; color: var(--dark);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--indigo); }
+  .nav-btn {
+    font-size: 0.875rem; font-weight: 600;
+    background: var(--indigo); color: white !important;
+    padding: 9px 22px; border-radius: 8px;
+    transition: background 0.15s, transform 0.15s !important;
+  }
+  .nav-btn:hover { background: var(--navy) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 68px 64px 0;
+    position: relative; overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 70% at 68% 45%, rgba(55,48,200,0.55) 0%, transparent 65%),
+      radial-gradient(ellipse 35% 50% at 8%  85%, rgba(14,165,160,0.22) 0%, transparent 55%);
+  }
+  .hero-dots {
+    position: absolute; inset: 0; opacity: 0.055;
+    background-image: radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 680px;
+  }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 32px;
+  }
+  .hero-pill-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--teal);
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -1.5px; color: white;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent { color: var(--teal); }
+  .hero p {
+    font-size: 1.05rem; font-weight: 400; line-height: 1.75;
+    color: rgba(255,255,255,0.62); max-width: 500px;
+    margin-bottom: 44px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block; text-decoration: none;
+    background: var(--teal); color: white;
+    font-size: 0.9rem; font-weight: 700;
+    padding: 14px 30px; border-radius: 9px;
+    transition: transform 0.18s, box-shadow 0.18s;
+    letter-spacing: -0.1px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(14,165,160,0.38); }
+  .btn-ghost {
+    display: inline-block; text-decoration: none;
+    background: transparent; color: rgba(255,255,255,0.82);
+    font-size: 0.9rem; font-weight: 600;
+    padding: 14px 30px; border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.22);
+    transition: background 0.18s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.07); }
+
+  /* ── SECTION SHELL ── */
+  .section { padding: 96px 64px; }
+  .section.bg-light { background: var(--light); }
+  .overline {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--indigo);
+    margin-bottom: 14px; display: block;
+  }
+  .overline.teal  { color: var(--teal); }
+  .overline.green { color: var(--green); }
+  .section-h {
+    font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+    font-weight: 800; line-height: 1.15; letter-spacing: -0.8px;
+    color: var(--dark);
+  }
+  .section-sub {
+    font-size: 0.975rem; font-weight: 400; line-height: 1.75;
+    color: var(--muted); max-width: 500px; margin-top: 14px;
+  }
+
+  /* ── PILLAR LAYOUT ── */
+  .pillar {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 72px; align-items: center;
+    padding: 96px 64px;
+  }
+  .pillar.flip { direction: rtl; }
+  .pillar.flip > * { direction: ltr; }
+  .pillar.bg-light { background: var(--light); }
+
+  .pillar-badge {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+    margin-bottom: 20px; color: white;
+  }
+  .pillar-badge.b1 { background: var(--indigo); }
+  .pillar-badge.b2 { background: var(--teal); }
+  .pillar-badge.b3 { background: var(--green); }
+
+  .pillar-text h2 {
+    font-size: clamp(1.65rem, 2.4vw, 2.15rem);
+    font-weight: 800; line-height: 1.18; letter-spacing: -0.7px;
+    color: var(--dark); margin-bottom: 14px;
+  }
+  .pillar-text > p {
+    font-size: 0.95rem; line-height: 1.75; color: var(--muted);
+    margin-bottom: 36px; max-width: 440px;
+  }
+
+  .feat-list { display: flex; flex-direction: column; gap: 14px; }
+  .feat {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px;
+    transition: box-shadow 0.18s, transform 0.18s;
+  }
+  .pillar.bg-light .feat { background: white; }
+  .feat:hover { box-shadow: 0 6px 20px rgba(15,15,58,0.07); transform: translateY(-2px); }
+  .feat-icon {
+    width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .feat-icon.i1 { background: rgba(55,48,200,0.1); }
+  .feat-icon.i2 { background: rgba(14,165,160,0.1); }
+  .feat-icon.i3 { background: rgba(26,138,90,0.1); }
+  .feat-body h4 {
+    font-size: 0.9rem; font-weight: 700; color: var(--dark);
+    margin-bottom: 4px; letter-spacing: -0.2px;
+  }
+  .feat-body p { font-size: 0.82rem; line-height: 1.6; color: var(--muted); }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .tag {
+    font-size: 0.75rem; font-weight: 600;
+    padding: 5px 11px; border-radius: 6px; letter-spacing: 0.02em;
+  }
+  .tag.t1 { background: rgba(55,48,200,0.08); color: var(--indigo); }
+  .tag.t2 { background: rgba(14,165,160,0.08); color: var(--teal); }
+  .tag.t3 { background: rgba(26,138,90,0.08); color: var(--green); }
+
+  /* ── DASHBOARD CARDS ── */
+  .dash-card {
+    border-radius: 20px; padding: 36px 32px;
+    position: relative; overflow: hidden;
+    min-height: 400px; display: flex; flex-direction: column;
+    justify-content: space-between; gap: 32px;
+  }
+  .dash-card.dc1 { background: linear-gradient(145deg, #2d28b8 0%, #1a1a6e 100%); }
+  .dash-card.dc2 { background: linear-gradient(145deg, #0b7d79 0%, #0c3d5e 100%); }
+  .dash-card.dc3 { background: linear-gradient(145deg, #12694a 0%, #0b3453 100%); }
+  .dash-card::before {
+    content: ''; position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .dash-card::after {
+    content: ''; position: absolute;
+    bottom: -80px; left: -40px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .dc-head { position: relative; z-index: 2; }
+  .dc-title {
+    font-size: 1.05rem; font-weight: 700; color: white;
+    margin-bottom: 4px; letter-spacing: -0.3px;
+  }
+  .dc-sub { font-size: 0.78rem; color: rgba(255,255,255,0.48); }
+
+  .dc-kpis { position: relative; z-index: 2; display: flex; gap: 16px; }
+  .kpi {
+    flex: 1; background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .kpi-val {
+    font-size: 1.55rem; font-weight: 800; color: white;
+    letter-spacing: -0.5px; line-height: 1;
+  }
+  .kpi-label {
+    font-size: 0.7rem; color: rgba(255,255,255,0.48);
+    margin-top: 5px; text-transform: uppercase; letter-spacing: 0.07em;
+  }
+
+  .dc-bars { position: relative; z-index: 2; }
+  .dc-bars-title {
+    font-size: 0.72rem; color: rgba(255,255,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .bar-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .bar-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); width: 120px; flex-shrink: 0; }
+  .bar-track {
+    flex: 1; height: 5px; background: rgba(255,255,255,0.1);
+    border-radius: 100px; overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 100px; }
+  .bar-fill.fg { background: #4ade80; }
+  .bar-fill.ft { background: var(--teal); }
+  .bar-fill.fb { background: #93c5fd; }
+  .bar-pct { font-size: 0.78rem; color: white; font-weight: 600; width: 36px; text-align: right; flex-shrink: 0; }
+
+  /* ── COMPARE ── */
+  .compare-wrap { overflow-x: auto; margin-top: 52px; }
+  .compare-table {
+    width: 100%; border-collapse: collapse;
+    background: white; border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(15,15,58,0.06);
+  }
+  .compare-table th, .compare-table td {
+    padding: 16px 22px; text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table th:first-child,
+  .compare-table td:first-child { text-align: left; }
+  .compare-table thead tr { background: var(--navy); }
+  .compare-table th {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .compare-table th:first-child { color: white; }
+  .compare-table th.hl { color: var(--teal); }
+  .compare-table td { font-size: 0.875rem; color: var(--muted); }
+  .compare-table tr.lf td { background: rgba(55,48,200,0.03); }
+  .compare-table tr.lf td:first-child {
+    font-weight: 800; color: var(--indigo);
+    font-size: 0.95rem; letter-spacing: -0.2px;
+  }
+  .compare-table td:first-child { font-weight: 600; color: var(--dark); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .yes { color: #16a34a !important; font-weight: 700; font-size: 1.1rem !important; }
+  .no  { color: #d1d5db !important; }
+
+  /* ── CTA ── */
+  .cta-section { padding: 96px 64px; background: white; }
+  .cta-box {
+    background: var(--navy);
+    border-radius: 24px; padding: 80px 72px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: ''; position: absolute;
+    top: -100px; right: -100px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: rgba(55,48,200,0.35);
+  }
+  .cta-box::after {
+    content: ''; position: absolute;
+    bottom: -120px; left: -80px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: rgba(14,165,160,0.15);
+  }
+  .cta-box h2 {
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    font-weight: 800; letter-spacing: -1px;
+    color: white; margin-bottom: 16px;
+    position: relative; z-index: 2;
+  }
+  .cta-box p {
+    font-size: 0.975rem; line-height: 1.75;
+    color: rgba(255,255,255,0.58); max-width: 480px;
+    margin: 0 auto 40px; position: relative; z-index: 2;
+  }
+  .cta-actions {
+    display: flex; justify-content: center; gap: 14px;
+    flex-wrap: wrap; position: relative; z-index: 2;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #090926; padding: 40px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo { font-size: 1rem; font-weight: 800; color: white; }
+  .footer-logo span { color: var(--teal); }
+  footer small { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-size: 0.8rem; color: rgba(255,255,255,0.38);
+    text-decoration: none; font-weight: 500;
+    transition: color 0.15s;
+  }
+  .footer-links a:hover { color: white; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * {
+    animation: riseIn 0.65s ease both;
+  }
+  .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.18s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.32s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.46s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero, .section, .pillar, .cta-section { padding-left: 24px; padding-right: 24px; }
+    .pillar { grid-template-columns: 1fr; gap: 40px; }
+    .pillar.flip { direction: ltr; }
+    .cta-box { padding: 48px 28px; }
+    footer { padding: 36px 24px; flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Laptopfirst</a>
+  <div class="nav-links">
+    <a href="#solution">Solution</a>
+    <a href="#compare">Compare</a>
+    <a href="mailto:hello@laptopfirst.in">Contact</a>
+    <a href="https://cal.com/laptopfirst" class="nav-btn">Book a Demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-inner">
+    <div class="hero-pill"><span class="hero-pill-dot"></span>B2B SaaS · Laptop Rental Management</div>
+    <h1>The Complete OS for<br><span class="accent">Laptop Rental</span><br>Businesses</h1>
+    <p>One platform to manage customers, subscriptions, and devices — built exclusively for India's rental providers. Replace spreadsheets with a system that actually fits.</p>
+    <div class="hero-actions">
+      <a href="https://cal.com/laptopfirst" class="btn-primary">Schedule a Demo</a>
+      <a href="#solution" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION INTRO -->
+<section class="section" id="solution" style="text-align:center; padding-bottom: 48px;">
+  <span class="overline" style="text-align:center;">Our Solution</span>
+  <h2 class="section-h" style="max-width:640px; margin: 0 auto 16px;">Three Pillars. One Platform.<br>Built for Rental.</h2>
+  <p class="section-sub" style="margin: 0 auto; text-align:center;">Laptopfirst is the only end-to-end platform purpose-built for laptop rental operators — handling everything from onboarding to collections to device control.</p>
+</section>
+
+<!-- PILLAR 1 — Customer Hub -->
+<div class="pillar" id="pillar1">
+  <div class="pillar-text">
+    <span class="pillar-badge b1">Pillar 01 · Customer Hub</span>
+    <h2>Onboard Customers in Minutes, Not Days</h2>
+    <p>Replace paper-based KYC and manual credit checks with a fully digital, guided flow. Know your customer's risk profile before you hand over a single device.</p>
+    <div class="feat-list">
+      <div class="feat">
+        <div class="feat-icon i1">🪪</div>
+        <div class="feat-body">
+          <h4>Digital KYC & Identity Verification</h4>
+          <p>Guided in-app flow with Aadhaar/PAN via DigiLocker, video KYC, and document OCR. Auto-flags mismatches and incomplete submissions instantly.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i1">📊</div>
+        <div class="feat-body">
+          <h4>Automated Credit Assessment</h4>
+          <p>Instant CIBIL/Experian bureau pull, configurable risk thresholds, and a rental-specific scoring model built on your own payment history data.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i1">📋</div>
+        <div class="feat-body">
+          <h4>Digital Contracts & 360° CRM</h4>
+          <p>E-sign rental agreements, auto-populate customer data, log every interaction, and get smart alerts on renewals, expiries, and overdue actions.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag t1">Aadhaar API</span>
+      <span class="tag t1">DigiLocker</span>
+      <span class="tag t1">Video KYC</span>
+      <span class="tag t1">CIBIL · Experian</span>
+      <span class="tag t1">eSign</span>
+    </div>
+  </div>
+  <div>
+    <div class="dash-card dc1">
+      <div class="dc-head">
+        <div class="dc-title">Customer Hub</div>
+        <div class="dc-sub">Live overview · today</div>
+      </div>
+      <div class="dc-kpis">
+        <div class="kpi"><div class="kpi-val">247</div><div class="kpi-label">Active customers</div></div>
+        <div class="kpi"><div class="kpi-val">8 min</div><div class="kpi-label">Avg. onboard time</div></div>
+      </div>
+      <div class="dc-bars">
+        <div class="dc-bars-title">KYC Completion Rate</div>
+        <div class="bar-row"><span class="bar-label">Aadhaar Verified</span><div class="bar-track"><div class="bar-fill fg" style="width:94%"></div></div><span class="bar-pct">94%</span></div>
+        <div class="bar-row"><span class="bar-label">Credit Scored</span><div class="bar-track"><div class="bar-fill ft" style="width:88%"></div></div><span class="bar-pct">88%</span></div>
+        <div class="bar-row"><span class="bar-label">Contracts Signed</span><div class="bar-track"><div class="bar-fill fb" style="width:100%"></div></div><span class="bar-pct">100%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLAR 2 — Subscription Engine -->
+<div class="pillar flip bg-light" id="pillar2">
+  <div class="pillar-text">
+    <span class="pillar-badge b2">Pillar 02 · Subscription Engine</span>
+    <h2>Collections on Complete Auto-Pilot</h2>
+    <p>Set your billing cycles once and let Laptopfirst handle invoices, payment collection, dunning, and GST compliance — with zero manual effort every month.</p>
+    <div class="feat-list">
+      <div class="feat">
+        <div class="feat-icon i2">🔄</div>
+        <div class="feat-body">
+          <h4>Recurring Invoices & Billing Automation</h4>
+          <p>Auto-generated GST-ready invoices with proration and mid-cycle change support. Handles every edge case without your intervention.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i2">💳</div>
+        <div class="feat-body">
+          <h4>Multi-Mode Payment Collection</h4>
+          <p>UPI AutoPay, NACH mandates, payment links, and card billing via Razorpay and Cashfree. Smart dunning and retry logic reduce defaults significantly.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i2">📈</div>
+        <div class="feat-body">
+          <h4>Revenue Dashboard & Analytics</h4>
+          <p>Live MRR, ARR, collection rate, aging buckets, and churn forecasting. One-click export for your accountant — always audit-ready.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag t2">UPI AutoPay</span>
+      <span class="tag t2">NACH Mandate</span>
+      <span class="tag t2">Razorpay</span>
+      <span class="tag t2">Cashfree</span>
+      <span class="tag t2">GST Ready</span>
+    </div>
+  </div>
+  <div>
+    <div class="dash-card dc2">
+      <div class="dc-head">
+        <div class="dc-title">Subscription Engine</div>
+        <div class="dc-sub">Collections overview · March 2026</div>
+      </div>
+      <div class="dc-kpis">
+        <div class="kpi"><div class="kpi-val">₹8.4L</div><div class="kpi-label">MRR</div></div>
+        <div class="kpi"><div class="kpi-val">96.2%</div><div class="kpi-label">Collection rate</div></div>
+      </div>
+      <div class="dc-bars">
+        <div class="dc-bars-title">Payment Channel Mix</div>
+        <div class="bar-row"><span class="bar-label">UPI AutoPay</span><div class="bar-track"><div class="bar-fill fg" style="width:65%"></div></div><span class="bar-pct">65%</span></div>
+        <div class="bar-row"><span class="bar-label">NACH Mandate</span><div class="bar-track"><div class="bar-fill ft" style="width:25%"></div></div><span class="bar-pct">25%</span></div>
+        <div class="bar-row"><span class="bar-label">Payment Links</span><div class="bar-track"><div class="bar-fill fb" style="width:10%"></div></div><span class="bar-pct">10%</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLAR 3 — Device Intelligence -->
+<div class="pillar" id="pillar3">
+  <div class="pillar-text">
+    <span class="pillar-badge b3">Pillar 03 · Device Intelligence</span>
+    <h2>Total Control Over Every Device</h2>
+    <p>Know exactly where every laptop is, who has it, and how healthy it is. Lock or wipe on default. Fix issues remotely before customers even notice a problem.</p>
+    <div class="feat-list">
+      <div class="feat">
+        <div class="feat-icon i3">🗂️</div>
+        <div class="feat-body">
+          <h4>Asset Tracking & Inventory</h4>
+          <p>Every laptop tagged at intake — serial number, specs, photos. Real-time view of which device is with which customer and its current health score.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i3">🔒</div>
+        <div class="feat-body">
+          <h4>Remote Lock, Wipe & Security</h4>
+          <p>Instantly lock or wipe a device when a customer defaults or their agreement lapses. Geofencing alerts and real-time tamper notifications via MDM.</p>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon i3">🖥️</div>
+        <div class="feat-body">
+          <h4>Remote Support & Monitoring</h4>
+          <p>One-click screen-share for troubleshooting. Proactive monitoring for disk, battery, OS updates, and malware flags — before customers notice.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tag-row">
+      <span class="tag t3">MDM Integration</span>
+      <span class="tag t3">Remote Lock/Wipe</span>
+      <span class="tag t3">Geofencing</span>
+      <span class="tag t3">SMART Monitoring</span>
+      <span class="tag t3">Remote Desktop</span>
+    </div>
+  </div>
+  <div>
+    <div class="dash-card dc3">
+      <div class="dc-head">
+        <div class="dc-title">Device Intelligence</div>
+        <div class="dc-sub">Fleet overview · 312 devices</div>
+      </div>
+      <div class="dc-kpis">
+        <div class="kpi"><div class="kpi-val">312</div><div class="kpi-label">Managed devices</div></div>
+        <div class="kpi"><div class="kpi-val">98.7%</div><div class="kpi-label">Fleet health</div></div>
+      </div>
+      <div class="dc-bars">
+        <div class="dc-bars-title">Device Status Breakdown</div>
+        <div class="bar-row"><span class="bar-label">Active & Healthy</span><div class="bar-track"><div class="bar-fill fg" style="width:89%"></div></div><span class="bar-pct">278</span></div>
+        <div class="bar-row"><span class="bar-label">Needs Attention</span><div class="bar-track"><div class="bar-fill ft" style="width:7%"></div></div><span class="bar-pct">21</span></div>
+        <div class="bar-row"><span class="bar-label">Locked / Secured</span><div class="bar-track"><div class="bar-fill fb" style="width:4%"></div></div><span class="bar-pct">13</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE -->
+<section class="section bg-light" id="compare">
+  <span class="overline">Competitive Landscape</span>
+  <h2 class="section-h">Built for Rental —<br>Not Adapted From It</h2>
+  <p class="section-sub">Competitors solve one piece of the puzzle. Laptopfirst is the only end-to-end platform purpose-built for laptop rental operators.</p>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Solution</th>
+          <th class="hl">Digital KYC</th>
+          <th class="hl">Recurring Billing</th>
+          <th class="hl">Device Lock / Wipe</th>
+          <th class="hl">Remote Support</th>
+          <th class="hl">Rental-Native</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="lf">
+          <td>Laptopfirst</td>
+          <td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td>Generic CRM (Zoho, Salesforce)</td>
+          <td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td>
+        </tr>
+        <tr>
+          <td>MDM Only (JumpCloud, Hexnode)</td>
+          <td class="no">—</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td>
+        </tr>
+        <tr>
+          <td>Billing SaaS (Chargebee)</td>
+          <td class="no">—</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td>
+        </tr>
+        <tr>
+          <td>Spreadsheets + WhatsApp</td>
+          <td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>Ready to Run Your Rental<br>Business on Laptopfirst?</h2>
+    <p>Join rental providers across India who are replacing spreadsheets with a platform built exactly for how they work.</p>
+    <div class="cta-actions">
+      <a href="https://cal.com/laptopfirst" class="btn-primary">Schedule a Demo</a>
+      <a href="mailto:hello@laptopfirst.in" class="btn-ghost">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Laptop<span>first</span></div>
+  <small>hello@laptopfirst.in · laptopfirst.in</small>
+  <div class="footer-links">
+    <a href="https://laptopfirst.in">Website</a>
+    <a href="mailto:hello@laptopfirst.in">Contact</a>
+    <a href="https://cal.com/laptopfirst">Book Demo</a>
+  </div>
+</footer>
+
+</body>
+</html>
