@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaptopFirst - Managed Laptops for Modern Teams</title>
+    <!-- Google Tag Manager (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5DPH1RPZQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J5DPH1RPZQ');
+    </script>
+
+    <!-- Hotjar Tracking Code -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:3763994,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;750;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            950: '#0b0f19'
+                        }
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .brand-logo-text {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 750;
+            letter-spacing: -0.045em;
+            color: #2D3796;
+            display: inline-flex;
+            align-items: center;
+            user-select: none;
+            transition: all 0.2s ease;
+            text-transform: lowercase;
+        }
+        .brand-logo-text:hover {
+            color: #3b46be;
+            opacity: 0.95;
+        }
+        .brand-logo-text-light {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-weight: 750;
+            letter-spacing: -0.045em;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            user-select: none;
+            transition: all 0.2s ease;
+            text-transform: lowercase;
+        }
+        .brand-logo-text-light:hover {
+            color: #e2e8f0;
+            opacity: 0.95;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom transitions */
+        .tab-transition {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Style range slider */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: background 0.15s ease-in-out;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #1d4ed8;
+        }
+
+        /* Scroll-triggered reveal animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom animation delays for staggered reveals */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes blob {
+            0%, 100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            33% {
+                transform: translate(30px, -40px) scale(1.08);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.96);
+            }
+        }
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes scalePop {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes slideUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Applied animations class names */
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .animate-blob {
+            animation: blob 8s infinite ease-in-out;
+        }
+        .animate-subtle-float {
+            animation: subtleFloat 5s infinite ease-in-out;
+        }
+        .animate-slide-up-fade {
+            animation: slideUpFade 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .scale-pop {
+            display: inline-block;
+            animation: scalePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.3s ease;
+        }
+
+        /* Animation delays for load animations */
+        .animate-delay-100 { animation-delay: 100ms; }
+        .animate-delay-200 { animation-delay: 200ms; }
+        .animate-delay-300 { animation-delay: 300ms; }
+        .animate-delay-400 { animation-delay: 400ms; }
+        .animate-delay-500 { animation-delay: 500ms; }
+
+        /* Smooth accordion support style */
+        .faq-ans-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out, padding 0.32s ease-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white text-slate-800 font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- Top Banner -->
+    <div class="bg-slate-900 text-slate-300 py-2.5 px-6 border-b border-slate-800 text-center">
+        <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-3 text-xs font-semibold">
+            <span class="inline-flex rounded-full bg-blue-500/20 px-2 py-0.5 text-[10px] text-blue-400 font-bold tracking-wide border border-blue-500/30 uppercase">
+                Active Hub Update
+            </span>
+            <p class="font-normal text-slate-300">
+                New support warehouses operational in <strong class="text-white">Whitefield (Bangalore)</strong> & <strong class="text-white">Gurgaon (NCR)</strong> for immediate hot-swaps.
+            </p>
+            <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline inline-flex items-center gap-0.5 cursor-pointer">
+                Book Consultation <i class="w-3 h-3 ml-0.5" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 sm:px-10 py-5">
+            <!-- Logo -->
+            <a href="/" class="brand-logo-text text-2xl sm:text-2xl.5 leading-none">
+                laptopfirst
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#offerings-section" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Core Offerings</a>
+                <a href="#how-it-works-section" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">How It Works</a>
+                <a href="#faq-section" class="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">FAQs</a>
+            </nav>
+
+            <!-- Desktop Actions -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 rounded-full bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all cursor-pointer">
+                    Book a Consultation Call <i class="h-4 w-4" data-lucide="arrow-up-right"></i>
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="flex items-center gap-3 md:hidden">
+                <button onclick="toggleMobileMenu()" class="p-2 text-slate-600 hover:bg-slate-50 rounded-lg" aria-label="Toggle Menu">
+                    <i id="menu-icon" class="h-6 w-6" data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden border-b border-slate-100 bg-white md:hidden">
+            <div class="flex flex-col gap-4 px-6 py-5">
+                <a href="#offerings-section" onclick="closeMobileMenu()" class="text-left text-base font-semibold text-slate-800 py-1">Core Offerings</a>
+                <a href="#how-it-works-section" onclick="closeMobileMenu()" class="text-left text-base font-semibold text-slate-800 py-1">How It Works</a>
+                <a href="#faq-section" onclick="closeMobileMenu()" class="text-left text-base font-semibold text-slate-800 py-1">FAQs</a>
+                <div class="h-[1px] bg-slate-100 my-1"></div>
+                <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="w-full inline-block text-center rounded-xl bg-blue-600 py-3 text-sm font-semibold text-white hover:bg-blue-700">
+                    Book a Consultation Call
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative">
+        
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative overflow-hidden bg-white py-16 sm:py-24 border-b border-slate-50">
+            <!-- Ambient premium glowing blobs -->
+            <div class="absolute top-12 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob"></div>
+            <div class="absolute top-24 right-10 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-blob animate-delay-200"></div>
+            
+            <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.blue.50),white)] opacity-70"></div>
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="grid gap-12 lg:grid-cols-12 items-center">
+                    <!-- Hero Left copy -->
+                    <div class="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+                        <div class="inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold uppercase tracking-widest mb-2 shadow-xs border border-blue-100 animate-fade-in-up">
+                            Zero Capex • Zero IT Overhead
+                        </div>
+                        <h1 class="text-4xl font-extrabold leading-[1.1] text-slate-800 sm:text-5xl lg:text-6xl tracking-tight animate-fade-in-up animate-delay-100">
+                            Managed laptops for <span class="text-blue-600">modern teams</span>
+                        </h1>
+                        <p class="mx-auto lg:mx-0 max-w-xl text-lg text-slate-600 leading-relaxed font-normal animate-fade-in-up animate-delay-200">
+                            Get premium hardware, software licenses, and 24/7 IT support for your team on a flexible monthly subscription. Scale from 5 to 50+ members instantly.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up animate-delay-300">
+                            <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2 text-center">
+                                Book a Consultation Call <i class="h-5 w-5" data-lucide="arrow-right"></i>
+                            </a>
+                            <a href="#how-it-works-section" class="w-full sm:w-auto px-8 py-4 bg-white border-2 border-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-50 transition-all text-center">
+                                See How It Works
+                            </a>
+                        </div>
+                        <div class="pt-6 border-t border-slate-200 max-w-lg mx-auto lg:mx-0 animate-fade-in-up animate-delay-400">
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-xs font-semibold text-slate-500">
+                                <span class="flex items-center gap-1.5 font-bold text-slate-600">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping absolute inline-flex"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 relative inline-flex"></span>
+                                    Trusted by 200+ Growth Teams
+                                </span>
+                                <span class="hidden sm:inline h-4 w-[1px] bg-slate-200"></span>
+                                <span class="text-slate-500">India's Premier IT Partner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Right graphic card -->
+                    <div class="lg:col-span-5 relative animate-fade-in animate-delay-300">
+                        <div class="relative rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl space-y-6 animate-subtle-float hover:shadow-blue-500/5 hover:border-blue-200 transition-all duration-300">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <div class="flex gap-1.5">
+                                    <span class="h-3 w-3 rounded-full bg-rose-400"></span>
+                                    <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+                                    <span class="h-3 w-3 rounded-full bg-emerald-400"></span>
+                                </div>
+                                <span class="text-[10px] font-mono text-slate-400 tracking-wider">Device Stack Registry</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="rounded-2xl bg-slate-50 p-4 border border-slate-150 flex items-center justify-between gap-4">
+                                    <div class="flex items-center gap-3">
+                                        <span class="p-2.5 rounded-xl bg-blue-600 text-white shadow-sm">
+                                            <i class="h-5 w-5" data-lucide="laptop"></i>
+                                        </span>
+                                        <div>
+                                            <span class="text-xs font-bold text-slate-900 block">ThinkPad T14 Configured</span>
+                                            <span class="text-[10px] font-mono text-slate-500">AMD Ryzen 7 • 16GB RAM • MDM</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Ready</span>
+                                </div>
+                                <div class="rounded-2xl bg-slate-50 p-4 border border-slate-150 flex items-center justify-between gap-4">
+                                    <div class="flex items-center gap-3">
+                                        <span class="p-2.5 rounded-xl bg-blue-600 text-white shadow-sm">
+                                            <i class="h-5 w-5" data-lucide="laptop"></i>
+                                        </span>
+                                        <div>
+                                            <span class="text-xs font-bold text-slate-900 block">MacBook Pro M3 Configured</span>
+                                            <span class="text-[10px] font-mono text-slate-500">M3 Pro • 18GB RAM • OS-Seeded</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">Ready</span>
+                                </div>
+                                <div class="rounded-2xl border border-blue-200 bg-blue-50/15 p-4 flex items-center justify-between gap-4 relative overflow-hidden">
+                                    <div class="flex items-center gap-3">
+                                        <span class="p-2.5 rounded-xl bg-blue-500 text-white animate-pulse">
+                                            <i class="h-5 w-5" data-lucide="cpu"></i>
+                                        </span>
+                                        <div>
+                                            <span class="text-xs font-black text-blue-900 block">24/7 Support Active</span>
+                                            <span class="text-[10px] font-semibold text-blue-600">Hot-swap backup pool live</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] uppercase font-mono font-bold text-blue-600">Verified</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2.5 text-center text-xs pt-2">
+                                <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                                    <span class="text-[11px] font-mono text-slate-400 block uppercase">Setup</span>
+                                    <span class="font-extrabold text-slate-800">10 mins</span>
+                                </div>
+                                <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                                    <span class="text-[11px] font-mono text-slate-400 block uppercase">Terms</span>
+                                    <span class="font-extrabold text-slate-800">Flexible</span>
+                                </div>
+                                <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                                    <span class="text-[11px] font-mono text-slate-400 block uppercase">SLA</span>
+                                    <span class="font-extrabold text-slate-800">24 Hours</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem vs Solution Section -->
+        <section id="problem-solution-section" class="mx-auto max-w-7xl px-6 py-20 lg:py-28 relative">
+            <div class="absolute right-0 top-1/4 -z-10 h-72 w-72 rounded-full bg-blue-50/50 blur-3xl"></div>
+            <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full inline-block">
+                    The Reality of Fast-Scaling
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-800">
+                    You Built a Tech Startup to Create Code, Not Handle Inventory
+                </h2>
+                <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+                    Every new developer onboarded shouldn't cost you an entire day of operational headaches. Compare the traditional route against modern IT subscriptions.
+                </p>
+
+                <!-- Mode Selector Toggle -->
+                <div class="mt-8 inline-flex items-center gap-1 rounded-full bg-slate-100 p-1.5 border border-slate-200">
+                    <button id="tab-prob-btn" onclick="switchProbTab('problem')" class="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer text-slate-600 hover:text-slate-900 hover:bg-slate-50">
+                        <i class="h-4 w-4" data-lucide="shield-alert"></i> Traditional Hassle
+                    </button>
+                    <button id="tab-sol-btn" onclick="switchProbTab('solution')" class="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer bg-blue-600 text-white shadow-md">
+                        <i class="h-4 w-4" data-lucide="zap"></i> LaptopFirst Subscription
+                    </button>
+                </div>
+            </div>
+
+            <div class="mx-auto max-w-5xl rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-10 shadow-xl shadow-slate-100/50">
+                <!-- Problem View -->
+                <div id="prob-tab-view-problem" class="hidden grid gap-8 lg:grid-cols-12 items-center tab-transition">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-rose-50 text-rose-500">
+                            <i class="h-7 w-7" data-lucide="alert-circle"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-800 text-slate-800">
+                                The Painful "Accidental IT Manager" Route
+                            </h3>
+                            <p class="mt-3 text-slate-600 leading-relaxed text-sm sm:text-base">
+                                Hiring a tech professional triggers hours wasted sorting manual requisitions, getting vendor approvals, chasing invoices, configuring software accounts, and mailing packages.
+                            </p>
+                        </div>
+                        <div class="grid gap-4 sm:grid-cols-2 mt-4">
+                            <div class="flex gap-2.5 items-start">
+                                <span class="mt-1.5 h-2 w-2 rounded-full bg-rose-500 shrink-0"></span>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Chasing individual hardware quotes with local distributors</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <span class="mt-1.5 h-2 w-2 rounded-full bg-rose-500 shrink-0"></span>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Installing IDEs, secure VPNs, and organizational SSOS manually</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <span class="mt-1.5 h-2 w-2 rounded-full bg-rose-500 shrink-0"></span>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Capital locked up forever in bulk depreciating assets</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <span class="mt-1.5 h-2 w-2 rounded-full bg-rose-500 shrink-0"></span>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Zero backup devices when systems break mid-sprint</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-slate-50 p-4 border border-slate-150 flex gap-3 items-center">
+                            <i class="h-5 w-5 text-rose-500 shrink-0" data-lucide="alert-circle"></i>
+                            <p class="text-xs text-slate-500 font-mono">
+                                <strong class="text-slate-700">Cost:</strong> ~12+ hours wasted per employee and ₹1,50,000+ upfront cash drained with zero security.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-slate-50/50 rounded-2xl p-6 border border-slate-150 flex flex-col justify-center space-y-6">
+                        <h4 class="text-xs font-mono tracking-wider text-rose-600 uppercase font-bold">The Onboarding Timeline Pain</h4>
+                        <div class="space-y-4">
+                            <div class="flex gap-3 text-xs sm:text-sm">
+                                <span class="font-mono font-bold text-rose-500 text-right w-14 shrink-0">Day -5:</span>
+                                <div>
+                                    <b class="text-slate-800 block text-xs">Procure</b>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">Negotiate quotes with 3 Bangalore-based sellers. Send deposits.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 text-xs sm:text-sm">
+                                <span class="font-mono font-bold text-rose-500 text-right w-14 shrink-0">Day -2:</span>
+                                <div>
+                                    <b class="text-slate-800 block text-xs">Setup</b>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">You manually configure Github, setup VPN permissions, test IDEs.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 text-xs sm:text-sm">
+                                <span class="font-mono font-bold text-rose-500 text-right w-14 shrink-0">Day 1:</span>
+                                <div>
+                                    <b class="text-slate-800 block text-xs">Deliver</b>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">Courier delayed in transit. Developer idle, waiting for laptop.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 text-xs sm:text-sm">
+                                <span class="font-mono font-bold text-rose-500 text-right w-14 shrink-0">Day 15:</span>
+                                <div>
+                                    <b class="text-slate-800 block text-xs">Incident</b>
+                                    <p class="text-[11px] sm:text-xs text-slate-500 font-normal leading-relaxed">Machine crashes. Founder spends hours debug searching forums.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution View -->
+                <div id="prob-tab-view-solution" class="grid gap-8 lg:grid-cols-12 items-center tab-transition">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                            <i class="h-7 w-7" data-lucide="zap"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-800">
+                                The Smart "LaptopFirst" IT Subscription
+                            </h3>
+                            <p class="mt-3 text-slate-600 leading-relaxed text-sm sm:text-base">
+                                We take care of your entire IT department, on subscription. Get pre-negotiated elite machines matching exact specs, licensed software tools, and 24/7 technical assistance for a static monthly rate.
+                            </p>
+                        </div>
+                        <div class="grid gap-4 sm:grid-cols-2 mt-4">
+                            <div class="flex gap-2.5 items-start">
+                                <i class="mt-0.5 h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Configure stack once: Deploy to infinite devs</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <i class="mt-0.5 h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">IDEs, Slack, MDM preloaded out-of-the-box</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <i class="mt-0.5 h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Zero upfront cost; pay on absolute operating flow (OpEx)</p>
+                            </div>
+                            <div class="flex gap-2.5 items-start">
+                                <i class="mt-0.5 h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                                <p class="text-xs sm:text-sm font-medium text-slate-700 leading-normal">Elite Hot-Swap coverage during urgent sprint breaks</p>
+                            </div>
+                        </div>
+                        <div class="rounded-xl bg-blue-50 p-4 border border-blue-100/60 flex gap-3 items-center">
+                            <i class="h-5 w-5 text-blue-600 shrink-0" data-lucide="check-circle-2"></i>
+                            <p class="text-xs text-slate-600 font-mono">
+                                <strong class="text-slate-800">Result:</strong> Instant setup, zero CapEx locked up, and perfect security alignment across India.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-gradient-to-tr from-blue-50/30 to-slate-50 rounded-2xl p-6 border border-slate-200/80 flex flex-col justify-center space-y-5">
+                        <h4 class="text-xs font-mono tracking-wider text-blue-600 uppercase font-bold">The LaptopFirst Instant Flow</h4>
+                        <div class="relative border-l border-blue-100 pl-4 space-y-4 text-xs ml-2">
+                            <div class="relative">
+                                <span class="relative -left-6.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">1</span>
+                                <h5 class="font-bold text-slate-800">Configure stack</h5>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Select models & system licensing setups in 2 minutes.</p>
+                            </div>
+                            <div class="relative">
+                                <span class="relative -left-6.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">2</span>
+                                <h5 class="font-bold text-slate-800">Swift Hub Ship</h5>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Laptops delivered pre-configured on Day 0 directly to developer.</p>
+                            </div>
+                            <div class="relative">
+                                <span class="relative -left-6.5 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">3</span>
+                                <h5 class="font-bold text-slate-800">Ultimate Piece of Mind</h5>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Hot-swap device replacement handles any hardware crash instantly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Offerings Section -->
+        <section id="offerings-section" class="mx-auto max-w-7xl px-6 py-20 lg:py-24">
+            <div class="text-center max-w-2.5xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/70 px-3.5 py-1.5 rounded-full inline-block">
+                    The 3-In-1 Operational Offering
+                </span>
+                <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
+                    Your Entire IT Department, Fully Managed
+                </h2>
+                <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                    We don't just rent laptops. We take care of your entire IT lifecycle so you can focus entirely on your product roadmap.
+                </p>
+            </div>
+
+            <div class="grid gap-8 lg:grid-cols-3">
+                <!-- Hardware Card -->
+                <div class="reveal-on-scroll group relative rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 hover:border-blue-300 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-extrabold text-slate-300 group-hover:text-blue-500 transition-colors">
+                                OFFERING CLASS 01
+                            </span>
+                            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                                Flexible Terms
+                            </span>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
+                            <i class="h-6 w-6" data-lucide="laptop"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Premium Hardware</h3>
+                            <p class="text-xs font-mono font-medium text-slate-500 mt-0.5 uppercase tracking-wide">Flexible monthly rental plan.</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pt-2">
+                            Enterprise-grade machines (ThinkPads, MacBooks, Dell Latitudes) configured precisely for developers or growth teams.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100 space-y-2.5">
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Developer Class MacBooks</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">High-performance Lenovo ThinkPads</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Standard Administrative Dells</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software & Licensing -->
+                <div class="reveal-on-scroll delay-100 group relative rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 hover:border-blue-300 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-extrabold text-slate-300 group-hover:text-blue-500 transition-colors">
+                                OFFERING CLASS 02
+                            </span>
+                            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                                Zero Setup Needed
+                            </span>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
+                            <i class="h-6 w-6" data-lucide="key"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Software Pre-configs</h3>
+                            <p class="text-xs font-mono font-medium text-slate-500 mt-0.5 uppercase tracking-wide">Compliant & ready out-of-the-box.</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pt-2">
+                            Pre-configured OS, security tools, and productivity suites assigned to your user accounts seamlessly.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100 space-y-2.5">
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Custom MDM Security policies</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Company browser/VPN preset</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Developer Toolchains preloaded</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- On-Demand support -->
+                <div class="reveal-on-scroll delay-200 group relative rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 hover:border-blue-300 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-350 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-extrabold text-slate-300 group-hover:text-blue-500 transition-colors">
+                                OFFERING CLASS 03
+                            </span>
+                            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                                SLA Fast Hot-Swap
+                            </span>
+                        </div>
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
+                            <i class="h-6 w-6" data-lucide="wrench"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Priority On-Demand IT</h3>
+                            <p class="text-xs font-mono font-medium text-slate-500 mt-0.5 uppercase tracking-wide">Zero internal IT team required.</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal pt-2">
+                            24/7 remote and local physical troubleshooting. If a hardware crash breaks your team, we'll dispatch a secure exchange system in under 4 hours.
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-100 space-y-2.5">
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Instant live diagnostic support</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Same-day courier hot-swap</span>
+                        </div>
+                        <div class="flex gap-2 items-center text-xs text-slate-700">
+                            <i class="h-4 w-4 text-emerald-500 shrink-0" data-lucide="check-circle-2"></i>
+                            <span class="font-semibold">Complete device recycling/cleanup</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Founders Choose Us Card Block -->
+        <section class="mx-auto max-w-7xl px-6 py-20 bg-slate-900 text-white rounded-3xl border border-slate-800 relative overflow-hidden my-12">
+            <div class="absolute left-[-100px] top-[-100px] h-96 w-96 rounded-full bg-blue-600/10 blur-3.5xl"></div>
+            <div class="relative z-10 grid gap-12 lg:grid-cols-2 items-center">
+                <div class="space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-blue-400">Founder Centric Decision Flow</span>
+                    <h2 class="text-3xl font-extrabold sm:text-4xl tracking-tight text-white leading-tight">
+                        Why Elite India Tech Founders Partner with LaptopFirst
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+                        Startups need to spend capital on compounding assets (engineers, code bases, product marketing)—not depreciating hardware. Pay a predictable monthly operating fee instead.
+                    </p>
+                    <div class="pt-4 border-t border-slate-800 flex gap-6 text-center text-xs">
+                        <div class="space-y-1">
+                            <span class="text-xl sm:text-2xl font-black text-blue-400 block font-mono">0</span>
+                            <span class="text-slate-400">Upfront Capital CapEx</span>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xl sm:text-2xl font-black text-blue-400 block font-mono">&lt; 4 Hours</span>
+                            <span class="text-slate-400">Emergency Physical Swap</span>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xl sm:text-2xl font-black text-blue-400 block font-mono">100%</span>
+                            <span class="text-slate-400">Tax Deductible OpEx</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                    <!-- Cards -->
+                    <div class="p-5.5 rounded-2xl bg-slate-850 bg-slate-800/40 border border-slate-800 space-y-3">
+                        <div class="h-9 w-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i class="h-5 w-5" data-lucide="zap"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-slate-100">Conserve Your Runway</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                            Stop locking up valuable seed or angel capital in bulk machinery. Rely on predictable, operations-aligned monthly operating expenses (OpEx).
+                        </p>
+                    </div>
+                    <div class="p-5.5 rounded-2xl bg-slate-850 bg-slate-800/40 border border-slate-800 space-y-3">
+                        <div class="h-9 w-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i class="h-5 w-5" data-lucide="laptop"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-slate-100">Instant Team Scaling</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                            Hiring a developer next week? We ship preConfigs straight to them. Team size fluctuating? Scale subscriptions up or down easily.
+                        </p>
+                    </div>
+                    <div class="p-5.5 rounded-2xl bg-slate-850 bg-slate-800/40 border border-slate-800 space-y-3">
+                        <div class="h-9 w-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i class="h-5 w-5" data-lucide="sparkles"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-slate-100">Premium SLA Footprint</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                            Centralized, remote, or hybrid teams in NCR, Bangalore, Pune, and Mumbai receive identical Rapid deploy and hot-swap physical assistance.
+                        </p>
+                    </div>
+                    <div class="p-5.5 rounded-2xl bg-slate-850 bg-slate-800/40 border border-slate-800 space-y-3">
+                        <div class="h-9 w-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i class="h-5 w-5" data-lucide="shield-check"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-slate-100">Ironclad Compliance</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                            Pre-configured MDM policies enforce corporate compliance to protect proprietary code bases and critical customer databases automatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works-section" class="mx-auto max-w-7xl px-6 py-20 bg-slate-50 border-t border-b border-slate-100">
+            <div class="text-center max-w-2.5xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-100/60 px-3.5 py-1.5 rounded-full inline-block">
+                    Seamless Setup In 3 Steps
+                </span>
+                <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
+                    Getting Devices Has Never Been Easier
+                </h2>
+                <p class="mt-3 text-slate-600 text-sm sm:text-base">
+                    Our streamlined corporate subscription model bypasses the typical IT procurement red-tape entirely.
+                </p>
+            </div>
+
+            <div class="grid gap-8 lg:grid-cols-3 relative">
+                <!-- Decorative progress line connector -->
+                <div class="hidden lg:block absolute top-[68px] left-[15%] right-[15%] h-[2px] bg-slate-200 -z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="reveal-on-scroll relative z-10 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 space-y-4">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/10">
+                                <i class="h-6 w-6" data-lucide="sliders"></i>
+                            </div>
+                            <span class="text-3xl font-black text-slate-200 font-mono">01</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">Step 1: Configure</h3>
+                            <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-600 mt-0.5">Select models & scale</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                            Choose your preferred laptop models and team size (5 to 50+ members). Tell us about your standard software requirements, developer environments, and network settings.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-50 flex items-center gap-1.5 text-[10px] uppercase font-mono font-bold text-slate-400">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Fully Managed Flow
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="reveal-on-scroll delay-100 relative z-10 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 space-y-4">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/10">
+                                <i class="h-6 w-6" data-lucide="truck"></i>
+                            </div>
+                            <span class="text-3xl font-black text-slate-200 font-mono">02</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">Step 2: Deploy</h3>
+                            <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-600 mt-0.5">Direct-to-Developer dispatch</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                            We preconfigure secure system settings, pre-compile toolchains, assign credentials, and courier the customized device package directly to your team members across India's hubs.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-50 flex items-center gap-1.5 text-[10px] uppercase font-mono font-bold text-slate-400">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Fully Managed Flow
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="reveal-on-scroll delay-200 relative z-10 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 space-y-4">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/10">
+                                <i class="h-6 w-6" data-lucide="refresh-cw"></i>
+                            </div>
+                            <span class="text-3xl font-black text-slate-200 font-mono">03</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">Step 3: Scale</h3>
+                            <p class="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-600 mt-0.5">Flexible subscriptions</p>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                            Scale subscriptions up or down as hiring fluctuates. Request localized hot-swap protection mid-sprint to safeguard engineers against sudden hardware failures.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-50 flex items-center gap-1.5 text-[10px] uppercase font-mono font-bold text-slate-400">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Fully Managed Flow
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Banner Info callout -->
+            <div class="mt-14 max-w-4xl mx-auto rounded-2xl bg-blue-50/55 border border-blue-100 p-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div class="space-y-1 text-center sm:text-left">
+                    <h4 class="text-sm font-bold text-blue-900 flex items-center justify-center sm:justify-start gap-1.5">
+                        <i class="h-4.5 w-4.5 text-blue-600" data-lucide="users"></i> Hiring developer or growth personnel next week?
+                    </h4>
+                    <p class="text-xs text-slate-600 max-w-xl">
+                        Input their destination, and we will direct-ship a compliant machine preloaded with your developer environment standard specs on Day 0.
+                    </p>
+                </div>
+                <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-bold leading-none shrink-0 transition flex items-center justify-center gap-1.5">
+                    Schedule Integration Call <i class="h-3.5 w-3.5" data-lucide="calendar"></i>
+                </a>
+            </div>
+        </section>
+
+
+
+        <!-- Dynamic Hub Geographic Explorer Section -->
+        <section id="localized-hubs" class="mx-auto max-w-7xl px-6 py-20 lg:py-24">
+            <div class="grid gap-12 lg:grid-cols-12 items-center">
+                <!-- Left Side: Copy & City Selector Tabs -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full inline-block">
+                            Geographic SLA Reach
+                        </span>
+                        <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
+                            Serving India's Premier Tech Ecosystems
+                        </h2>
+                        <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                            We operate dedicated local dispatch nodes and mechanical testing centers in major startup capitals to ensure you enjoy consistent, hot-swap device support.
+                        </p>
+                    </div>
+
+                    <!-- Hub Buttons lists -->
+                    <div class="space-y-3">
+                        <!-- Bangalore -->
+                        <button onclick="switchHubId('bangalore')" id="hubbtn-bangalore" class="w-full flex items-center justify-between p-4 rounded-2xl border text-left transition border-blue-500 bg-blue-50/15 shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span id="hubspan-bangalore" class="p-2.5 rounded-xl transition bg-blue-600 text-white">
+                                    <i class="h-4.5 w-4.5" data-lucide="map-pin"></i>
+                                </span>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Bangalore Hub</h4>
+                                    <span class="text-[10px] font-mono tracking-wider uppercase text-slate-400">Karnataka</span>
+                                </div>
+                            </div>
+                            <span id="hubdot-bangalore" class="h-2 w-2 rounded-full bg-blue-600"></span>
+                        </button>
+
+                        <!-- Pune Mumbai -->
+                        <button onclick="switchHubId('pune-mumbai')" id="hubbtn-pune-mumbai" class="w-full flex items-center justify-between p-4 rounded-2xl border text-left transition border-slate-150 bg-white hover:border-slate-350 hover:bg-slate-50/55">
+                            <div class="flex items-center gap-3">
+                                <span id="hubspan-pune-mumbai" class="p-2.5 rounded-xl transition bg-slate-100 text-slate-700">
+                                    <i class="h-4.5 w-4.5" data-lucide="map-pin"></i>
+                                </span>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Pune & Mumbai Hub</h4>
+                                    <span class="text-[10px] font-mono tracking-wider uppercase text-slate-400">Maharashtra</span>
+                                </div>
+                            </div>
+                            <span id="hubdot-pune-mumbai" class="h-2 w-2 rounded-full bg-slate-300"></span>
+                        </button>
+
+                        <!-- Delhi NCR -->
+                        <button onclick="switchHubId('delhi-ncr')" id="hubbtn-delhi-ncr" class="w-full flex items-center justify-between p-4 rounded-2xl border text-left transition border-slate-150 bg-white hover:border-slate-350 hover:bg-slate-50/55">
+                            <div class="flex items-center gap-3">
+                                <span id="hubspan-delhi-ncr" class="p-2.5 rounded-xl transition bg-slate-100 text-slate-700">
+                                    <i class="h-4.5 w-4.5" data-lucide="map-pin"></i>
+                                </span>
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-800">Delhi NCR Hub</h4>
+                                    <span class="text-[10px] font-mono tracking-wider uppercase text-slate-400">National Capital Region</span>
+                                </div>
+                            </div>
+                            <span id="hubdot-delhi-ncr" class="h-2 w-2 rounded-full bg-slate-300"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side: Hub Geographic Details Block -->
+                <div id="hub-detail-card" class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-4 top-4 -z-10 text-slate-100 opacity-70">
+                        <i class="h-40 w-40 rotate-45 stroke-[0.5]" data-lucide="navigation"></i>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <span class="text-[10px] uppercase font-mono tracking-widest text-blue-600 font-extrabold block">Local Status: Fully Operational</span>
+                            <h3 id="hub-tagline" class="text-xl sm:text-2xl font-black text-slate-800 mt-1">
+                                Powering India's tech ecosystem with zero-latency deployment.
+                            </h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Active Search Zones Covered</span>
+                                <div id="hub-locations-list" class="mt-2.5 flex flex-wrap gap-2">
+                                    <!-- Dynamic Locations tags -->
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 grid gap-4 grid-cols-1 sm:grid-cols-2">
+                                <div class="rounded-xl bg-slate-50 p-4 border border-slate-150 space-y-1">
+                                    <span class="text-[10px] uppercase font-mono text-slate-400 font-bold block">Ecosystem Focus</span>
+                                    <p id="hub-focus-text" class="text-xs text-slate-600 leading-normal font-medium">
+                                        Suited for rapidly scaling SaaS, Web3, and DeepTech startups. Main dispatch facility situated next to Sony World Signal.
+                                    </p>
+                                </div>
+
+                                <div class="rounded-xl bg-blue-50/35 p-4 border border-blue-100 space-y-2 flex flex-col justify-between">
+                                    <div class="flex gap-2 items-center text-xs font-bold text-blue-800">
+                                        <i class="h-4 w-4 text-blue-600 shrink-0" data-lucide="shield-check"></i>
+                                        Hot-Swap Deployment Guarantee
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 leading-normal">
+                                        Local standby stock ensures a secure backup device gets dispatched directly to Koramangala or Hinjewadi within business hours of reporting.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hub Certification Foot -->
+                        <div class="pt-4 border-t border-slate-100 flex flex-wrap gap-4 items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400">Laptops pre-tested to BIS Indian security levels.</span>
+                            <div class="flex gap-2 text-[10px] text-slate-500 font-bold">
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border">99.9% Up-Time</span>
+                                <span class="bg-slate-100 px-2 py-0.5 rounded border">BIS Compliant</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQs Section collapsible accordion panel -->
+        <section id="faq-section" class="mx-auto max-w-4xl px-6 py-20">
+            <div class="text-center mb-12 sm:mb-16">
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3.5 py-1.5 rounded-full inline-block">Clearing the Roadblocks</span>
+                <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">Frequently Answered Questions</h2>
+                <p class="mt-3 text-slate-600 text-sm sm:text-base">Got final sales hurdles or security worries? Let’s answer them in simple terms.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Item 1 -->
+                <div class="rounded-2xl border border-slate-150 bg-white hover:border-slate-300 transition-all">
+                    <button onclick="toggleFAQ(0)" class="w-full flex items-center justify-between p-5.5 sm:p-6 text-left cursor-pointer select-none">
+                        <span class="text-sm sm:text-base font-bold text-slate-800 pr-4">Is there a minimum team size or commitment period?</span>
+                        <span id="faq-icon-0" class="p-1 rounded-lg transition bg-slate-100 text-slate-500">
+                            <i class="h-4 w-4" data-lucide="plus"></i>
+                        </span>
+                    </button>
+                    <div id="faq-ans-0" class="hidden overflow-hidden px-5.5 pb-6 sm:px-6 sm:pb-7 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 font-normal">
+                        Yes, we optimize our packages starting at 5–10 members to offer the best economies of scale and direct 24/7 support. We offer flexible month-to-month subscription options, so your team can easily scale up or consolidate inventory as hiring needs fluctuate.
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="rounded-2xl border border-slate-150 bg-white hover:border-slate-300 transition-all">
+                    <button onclick="toggleFAQ(1)" class="w-full flex items-center justify-between p-5.5 sm:p-6 text-left cursor-pointer select-none">
+                        <span class="text-sm sm:text-base font-bold text-slate-800 pr-4">What happens if a developer's laptop stops working mid-sprint?</span>
+                        <span id="faq-icon-1" class="p-1 rounded-lg transition bg-slate-100 text-slate-500">
+                            <i class="h-4 w-4" data-lucide="plus"></i>
+                        </span>
+                    </button>
+                    <div id="faq-ans-1" class="hidden overflow-hidden px-5.5 pb-6 sm:px-6 sm:pb-7 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 font-normal">
+                        Don't panic. Our support team can be reached instantly online. If we diagnose a hardware failure, we immediately dispatch a fresh, pre-configured substitute laptop directly to the developer's desk in Bangalore, Pune, Mumbai, or Delhi NCR. They get right back to work with minimal downtime.
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="rounded-2xl border border-slate-150 bg-white hover:border-slate-300 transition-all">
+                    <button onclick="toggleFAQ(2)" class="w-full flex items-center justify-between p-5.5 sm:p-6 text-left cursor-pointer select-none">
+                        <span class="text-sm sm:text-base font-bold text-slate-800 pr-4">Can we customize the software stack pre-installed on the laptops?</span>
+                        <span id="faq-icon-2" class="p-1 rounded-lg transition bg-slate-100 text-slate-500">
+                            <i class="h-4 w-4" data-lucide="plus"></i>
+                        </span>
+                    </button>
+                    <div id="faq-ans-2" class="hidden overflow-hidden px-5.5 pb-6 sm:px-6 sm:pb-7 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 font-normal">
+                        Absolutely! We work directly with your engineering requirements to ensure code compliance, IDE installations (VSCode, Intellij, etc.), organizational SSO credentials, communication tools (Slack, Teams), and MDM security configurations are complete and ready the instant they open the box.
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="rounded-2xl border border-slate-150 bg-white hover:border-slate-300 transition-all">
+                    <button onclick="toggleFAQ(3)" class="w-full flex items-center justify-between p-5.5 sm:p-6 text-left cursor-pointer select-none">
+                        <span class="text-sm sm:text-base font-bold text-slate-800 pr-4">How do you handle data security when offboarding employees?</span>
+                        <span id="faq-icon-3" class="p-1 rounded-lg transition bg-slate-100 text-slate-500">
+                            <i class="h-4 w-4" data-lucide="plus"></i>
+                        </span>
+                    </button>
+                    <div id="faq-ans-3" class="hidden overflow-hidden px-5.5 pb-6 sm:px-6 sm:pb-7 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 font-normal">
+                        If an employee departs, we can remotely trigger secure wiping protocols via basic Mobile Device Management (MDM) tools to protect your repository, code bases, and customer accounts. We then pick up the machine, clean it inside and out, test everything, and have it ready for your next hire.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom support Banner bottom -->
+            <div class="mt-10 rounded-2xl bg-slate-50 p-6 border border-slate-200 text-center space-y-3">
+                <i class="h-6 w-6 text-blue-600 mx-auto" data-lucide="help-circle"></i>
+                <h3 class="text-sm font-bold text-slate-800">Have specific requirements or a massive team size (50+)?</h3>
+                <p class="text-xs text-slate-500 max-w-md mx-auto">
+                    We can easily custom bundle physical servers, multi-monitor desk setups, and customized enterprise compliance layers.
+                </p>
+                <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 mt-1">
+                    Book a Consultation Call <span>&rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Dynamic Bottom CTA Block -->
+        <section class="bg-slate-50 border-t border-b border-slate-200 py-16 text-center">
+            <div class="mx-auto max-w-4xl px-6 space-y-6">
+                <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-800">
+                    Ready to take IT operations completely off your plate?
+                </h3>
+                <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto font-normal">
+                    Let’s get your team set up with premium hardware and flawless backup support. Focus on your code; we’ll handle the rest.
+                </p>
+                <div>
+                    <a href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-xl bg-slate-800 text-white font-bold text-sm px-8 py-4 shadow-xl hover:bg-slate-900 transition-all cursor-pointer text-center">
+                        Book a Consultation Call <i class="h-4.5 w-4.5" data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+                <div class="text-[11px] font-mono text-slate-400">
+                    *Serving tech communities in Bangalore • Pune • Mumbai • Delhi NCR
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-900 text-slate-300 border-t border-slate-850">
+        <!-- Loc SEO block -->
+        <div class="mx-auto max-w-7xl px-6 py-12 border-b border-slate-800">
+            <h3 class="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold mb-6">
+                Serving India's Startup Ecosystems
+            </h3>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="space-y-2">
+                    <h4 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+                        <i class="h-4 w-4 text-blue-500 shrink-0" data-lucide="map-pin"></i> Bangalore Hub
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                        Powering fast-paced SaaS and Web3 startups in Koramangala, Indiranagar, and HSR Layout, outer ring road tech corridors.
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+                        <i class="h-4 w-4 text-blue-500 shrink-0" data-lucide="map-pin"></i> Pune & Mumbai Hub
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                        Seamless IT delivery and support for fintech and enterprise tech teams across Viman Nagar, Hinjewadi, Baner, and Bandra Kurla Complex (BKC).
+                    </p>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+                        <i class="h-4 w-4 text-blue-500 shrink-0" data-lucide="map-pin"></i> Delhi NCR Hub
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed font-normal">
+                        Reliable, premium corporate device subscriptions for high-growth startups in Gurgaon Cybercity and Noida Sector 62.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer info -->
+        <div class="mx-auto max-w-7xl px-6 py-12 lg:py-16 grid gap-10 md:grid-cols-12">
+            <div class="md:col-span-4 space-y-4">
+                <a href="/" class="brand-logo-text-light text-2xl leading-none">
+                    laptopfirst
+                </a>
+                <p class="text-xs text-slate-400 leading-relaxed font-normal max-w-sm">
+                    Providing enterprise-grade laptops, software preconfigs, and 24/7 technical hot-swap protection via monthly subscription packages tailored for modern tech teams.
+                </p>
+                <div class="text-[10px] font-mono text-slate-500 space-y-1">
+                    <div class="flex items-center gap-1.5">
+                        <i class="h-3 w-3 text-emerald-500 shrink-0" data-lucide="shield-check"></i> BIS Certified • MDM Controlled Setup Option
+                    </div>
+                    <div>STATUS: PROD INGRESS INTERFACE</div>
+                </div>
+            </div>
+
+            <!-- Solutions Column -->
+            <div class="md:col-span-4 space-y-3">
+                <h4 class="text-xs font-mono uppercase tracking-widest text-slate-100 font-bold">Solutions</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#offerings-section" class="text-slate-400 hover:text-white hover:underline transition">What We Provide</a></li>
+                    <li><a href="#how-it-works-section" class="text-slate-400 hover:text-white hover:underline transition">How It Works</a></li>
+                    <li><a href="#faq-section" class="text-slate-400 hover:text-white hover:underline transition">FAQS & Security Guidelines</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact column -->
+            <div class="md:col-span-4 space-y-3">
+                <h4 class="text-xs font-mono uppercase tracking-widest text-slate-100 font-bold">Inquire Directly</h4>
+                <p class="text-xs text-slate-400 leading-normal font-normal">
+                    Need customized bulk developer configurations or physical backup servers? Contact our sales pipeline.
+                </p>
+                <div class="space-y-2 text-xs text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <i class="h-4 w-4 text-blue-500 shrink-0" data-lucide="mail"></i>
+                        <span>sales@laptopfirst.in</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="h-4 w-4 text-blue-500 shrink-0" data-lucide="phone"></i>
+                        <span>+91 8851216076</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copy bar -->
+        <div class="border-t border-slate-850 px-6 py-6 bg-slate-950">
+            <div class="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] sm:text-xs text-slate-500 font-medium font-mono text-center sm:text-left">
+                <span>&copy; 2026 Laptopfirst India. All rights reserved</span>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-slate-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-300">SLA Guidelines</a>
+                    <a href="#" class="hover:text-slate-300">BIS Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Browser Client JS App Logic Scripts -->
+    <script>
+        // Safe helper to run lucide without crashing if offline or blocked
+        function safeCreateIcons() {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                try {
+                    lucide.createIcons();
+                } catch(e) {
+                    console.log("Lucide icons generation error", e);
+                }
+            }
+        }
+
+        // Helper to animate updated elements with a visual pulse/pop
+        function pulseElement(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.classList.remove("scale-pop");
+                void el.offsetWidth; // Force WebKit reflow
+                el.classList.add("scale-pop");
+            }
+        }
+
+        // 1. Mobile Menu Toggles
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobile-menu");
+            var icon = document.getElementById("menu-icon");
+            if (menu.classList.contains("hidden")) {
+                menu.classList.remove("hidden");
+                icon.setAttribute("data-lucide", "x");
+            } else {
+                menu.classList.add("hidden");
+                icon.setAttribute("data-lucide", "menu");
+            }
+            safeCreateIcons();
+        }
+        function closeMobileMenu() {
+            var menu = document.getElementById("mobile-menu");
+            var icon = document.getElementById("menu-icon");
+            menu.classList.add("hidden");
+            icon.setAttribute("data-lucide", "menu");
+            safeCreateIcons();
+        }
+
+        // 2. Problem/Solution Tab Toggler with smooth transition
+        function switchProbTab(tab) {
+            var pBtn = document.getElementById("tab-prob-btn");
+            var sBtn = document.getElementById("tab-sol-btn");
+            var pView = document.getElementById("prob-tab-view-problem");
+            var sView = document.getElementById("prob-tab-view-solution");
+
+            if (tab === 'problem') {
+                pBtn.className = "flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer bg-rose-500 text-white shadow-md";
+                sBtn.className = "flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer text-slate-600 hover:text-slate-900 hover:bg-slate-50";
+                pView.classList.remove("hidden");
+                sView.classList.add("hidden");
+                
+                // Add fresh entry transition
+                pView.classList.remove("animate-slide-up-fade");
+                void pView.offsetWidth; // Reflow
+                pView.classList.add("animate-slide-up-fade");
+            } else {
+                sBtn.className = "flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer bg-blue-600 text-white shadow-md";
+                pBtn.className = "flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all cursor-pointer text-slate-600 hover:text-slate-900 hover:bg-slate-50";
+                sView.classList.remove("hidden");
+                pView.classList.add("hidden");
+                
+                // Add fresh entry transition
+                sView.classList.remove("animate-slide-up-fade");
+                void sView.offsetWidth; // Reflow
+                sView.classList.add("animate-slide-up-fade");
+            }
+        }
+
+
+
+        // 4. Hub Explorer Location Data Switching
+        var hubDatabase = {
+            'bangalore': {
+                tagline: "Powering India's tech ecosystem with zero-latency deployment.",
+                locations: ['Koramangala', 'Indiranagar', 'HSR Layout', 'Outer Ring Road (ORR)', 'Green Glen Layout'],
+                focus: "Suited for rapidly scaling SaaS, Web3, and DeepTech startups. Main dispatch facility situated next to Sony World Signal."
+            },
+            'pune-mumbai': {
+                tagline: "Frictionless device supply chains across Western India startup hubs.",
+                locations: ['Viman Nagar', 'Hinjewadi Tech Park', 'Baner', 'Bandra Kurla Complex (BKC)', 'Andheri East'],
+                focus: "Powering high-growth fintech, commerce, and enterprise SaaS startups. Dual storage hubs ensure under 4-hour hot-swap."
+            },
+            'delhi-ncr': {
+                tagline: "Enterprise-grade corporate subscriptions across India's northern gateway.",
+                locations: ['Gurgaon Sector 45', 'DLF CyberCity', 'Noida Sector 62', 'Okhla Phase III', 'Connaught Place'],
+                focus: "Serving top-tier logistics tech, consumer brands, and artificial intelligence startups. Consistent same-day delivery SLAs."
+            }
+        };
+
+        function switchHubId(id) {
+            var keys = Object.keys(hubDatabase);
+            keys.forEach(function(k) {
+                var btn = document.getElementById("hubbtn-" + k);
+                var span = document.getElementById("hubspan-" + k);
+                var dot = document.getElementById("hubdot-" + k);
+
+                if (k === id) {
+                    btn.className = "w-full flex items-center justify-between p-4 rounded-2xl border text-left transition border-blue-500 bg-blue-50/15 shadow-sm scale-[1.01]";
+                    span.className = "p-2.5 rounded-xl transition bg-blue-600 text-white";
+                    dot.className = "h-2 w-2 rounded-full bg-blue-600";
+                } else {
+                    btn.className = "w-full flex items-center justify-between p-4 rounded-2xl border text-left transition border-slate-150 bg-white hover:border-slate-350 hover:bg-slate-50/55";
+                    span.className = "p-2.5 rounded-xl transition bg-slate-100 text-slate-700";
+                    dot.className = "h-2 w-2 rounded-full bg-slate-300";
+                }
+            });
+
+            // Update details with a beautiful slide-up-fade transition
+            var detailCard = document.getElementById("hub-detail-card");
+            if (detailCard) {
+                detailCard.classList.remove("animate-slide-up-fade");
+                void detailCard.offsetWidth; // Force Reflow
+                detailCard.classList.add("animate-slide-up-fade");
+            }
+
+            // Update content text
+            var db = hubDatabase[id];
+            document.getElementById("hub-tagline").innerText = db.tagline;
+            document.getElementById("hub-focus-text").innerText = db.focus;
+
+            var listHtml = "";
+            db.locations.forEach(function(loc) {
+                listHtml += '<span class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 border border-slate-200 transition-all duration-300 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-200">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 text-blue-600 shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>' +
+                    loc +
+                    '</span>';
+            });
+            document.getElementById("hub-locations-list").innerHTML = listHtml;
+            safeCreateIcons();
+        }
+
+        // 5. Frequently Answered Questions Accordion Expansion with height-slide transition
+        var faqsOpened = [false, false, false, false];
+        function toggleFAQ(idx) {
+            var ans = document.getElementById("faq-ans-" + idx);
+            var iconNode = document.getElementById("faq-icon-" + idx);
+            
+            // Add custom inline transitions if not already set
+            ans.style.transition = "max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease-out, padding 0.3s ease-out";
+            
+            if (faqsOpened[idx]) {
+                // Set explicit dimensions before transitioning
+                ans.style.maxHeight = ans.scrollHeight + "px";
+                void ans.offsetHeight; // force reflow
+                
+                ans.style.maxHeight = "0px";
+                ans.style.opacity = "0";
+                ans.style.paddingTop = "0px";
+                ans.style.paddingBottom = "0px";
+                
+                setTimeout(function() {
+                    if (!faqsOpened[idx]) {
+                        ans.classList.add("hidden");
+                    }
+                }, 300);
+                
+                iconNode.className = "p-1 rounded-lg transition bg-slate-100 text-slate-500 hover:bg-slate-200";
+                iconNode.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>';
+                faqsOpened[idx] = false;
+            } else {
+                ans.classList.remove("hidden");
+                
+                ans.style.maxHeight = "0px";
+                ans.style.opacity = "0";
+                ans.style.paddingTop = "0px";
+                ans.style.paddingBottom = "0px";
+                
+                void ans.offsetHeight; // force reflow
+                
+                ans.style.maxHeight = ans.scrollHeight + 16 + "px"; // add extra padding space
+                ans.style.opacity = "1";
+                ans.style.paddingTop = "1rem";
+                ans.style.paddingBottom = "1.5rem";
+                
+                iconNode.className = "p-1 rounded-lg transition bg-blue-600 text-white shadow-md";
+                iconNode.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><line x1="5" y1="12" x2="19" y2="12"></line></svg>';
+                faqsOpened[idx] = true;
+            }
+            safeCreateIcons();
+        }
+
+        // 6. Startup Initialization and Scroll Reveals
+        window.onload = function() {
+            safeCreateIcons();
+            switchHubId('bangalore');
+
+            // Scroll Reveal Intersection Observer Initialization
+            var revealElements = document.querySelectorAll(".reveal-on-scroll");
+            if (revealElements.length > 0 && 'IntersectionObserver' in window) {
+                var revealObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("revealed");
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.08,
+                    rootMargin: "0px 0px -40px 0px"
+                });
+                revealElements.forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            } else {
+                // Fallback: make them visible immediately if unsupported
+                revealElements.forEach(function(el) {
+                    el.classList.add("revealed");
+                });
+            }
+        }
+    </script>
+</body>
+</html>
