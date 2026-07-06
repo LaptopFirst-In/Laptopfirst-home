@@ -1,0 +1,1107 @@
+<title>LaptopFirst Laptop Rental Software That Locks, Finds, and Tracks Laptops</title>
+<meta name="description" content="LaptopFirst helps laptop rental businesses lock laptops remotely, track their fleet, check renters' ID, and see who owes payment — all in one simple app.">
+<meta name="keywords" content="laptop rental software, lock a rented laptop, track rental laptops, renter ID check, laptop subscription tracking, laptop rental business app">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LaptopFirst — Laptop Rental Software That Locks, Finds, and Tracks Laptops">
+<meta property="og:description" content="One simple app for laptop rental businesses: lock laptops remotely, track your fleet, check renters' ID, and see who owes payment.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2563EB">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "LaptopFirst",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web, Windows, macOS",
+  "description": "LaptopFirst is a simple app for laptop rental businesses. Lock and find laptops remotely, track your whole fleet, check who you're renting to, and see who owes you money — all in one place.",
+  "featureList": [
+    "Lock, find, and wipe laptops from anywhere",
+    "Track every laptop you own",
+    "Check a renter's ID before handing over a laptop",
+    "See which laptop belongs to which customer and plan",
+    "Lock a laptop automatically when payment is missed"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is MDM? Do I really need it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MDM stands for Mobile Device Management. It just means you can lock, find, or wipe a laptop from far away, using your phone or computer. If you rent out laptops, this is how you keep them safe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I lock a laptop if someone stops paying?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. If a customer misses a payment, you can lock their laptop with one click. They will see a message telling them to pay you. Once they pay, it unlocks by itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check if a customer is real before renting to them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Before you hand over a laptop, the customer uploads their ID and proof of address. We check that it is real. They also sign your rental agreement right on their phone, so you are not guessing who you are dealing with."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if a customer does not give the laptop back?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can see the last place the laptop connected to the internet, and lock it right away. This makes it much easier to get your laptop back without going to court."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work for both Windows laptops and MacBooks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Whether your laptops are Windows or Mac, you manage all of them from the same simple screen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is this different from other apps?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most apps only do one job: one locks laptops, another tracks who has them, another handles payments. LaptopFirst does all three together, so when someone stops paying, their laptop locks automatically — no extra work for you."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F8FAFC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --border-soft: #F1F5F9;
+    --fg: #1E293B;
+    --fg-strong: #0F172A;
+    --fg-muted: #64748B;
+    --fg-faint: #94A3B8;
+
+    --accent: #2563EB;
+    --accent-hover: #1D4ED8;
+    --accent-contrast: #FFFFFF;
+    --accent-soft: #EFF6FF;
+    --accent-soft-2: #DBEAFE;
+    --logo: #2D3796;
+
+    --ok: #10B981;
+    --ok-soft: #ECFDF5;
+    --ok-border: #D1FAE5;
+    --risk: #F43F5E;
+    --risk-soft: #FFF1F2;
+    --risk-border: #FFE4E6;
+    --warn: #F59E0B;
+    --warn-soft: #FFFBEB;
+
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+
+    --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow-lift: 0 20px 40px -18px rgba(37, 99, 235, 0.18);
+    --shadow-hero: 0 30px 60px -25px rgba(15, 23, 42, 0.22);
+
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .container {
+    width: 100%;
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--fg-strong);
+    margin: 0;
+  }
+  h1 { font-size: clamp(2.2rem, 3.6vw + 1rem, 3.5rem); line-height: 1.08; }
+  h2 { font-size: clamp(1.7rem, 1.8vw + 1rem, 2.4rem); line-height: 1.15; }
+  h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+
+  p { margin: 0; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  .lede {
+    color: var(--fg-muted);
+    font-size: 1.08rem;
+    max-width: 62ch;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--surface);
+    color: var(--fg);
+    padding: 10px 16px;
+    border-radius: 8px;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in-up { animation: fadeInUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+  .fade-delay-1 { animation-delay: 0.08s; }
+  .fade-delay-2 { animation-delay: 0.16s; }
+  .fade-delay-3 { animation-delay: 0.24s; }
+
+  @keyframes ping {
+    75%, 100% { transform: scale(2); opacity: 0; }
+  }
+  .live-dot { position: relative; display: inline-flex; width: 8px; height: 8px; }
+  .live-dot::before, .live-dot::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 999px;
+    background: var(--ok);
+  }
+  .live-dot::before { animation: ping 1.8s cubic-bezier(0,0,0.2,1) infinite; }
+
+  /* icon badges */
+  .icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .icon-badge svg { width: 22px; height: 22px; }
+  .icon-badge-risk { background: var(--risk-soft); color: var(--risk); }
+  .icon-badge-solid { background: var(--accent); color: #fff; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 24px;
+  }
+  .wordmark {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.045em;
+    text-transform: lowercase;
+    color: var(--logo);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  .wordmark:hover { opacity: 0.85; }
+  nav.primary { display: flex; gap: 30px; align-items: center; }
+  nav.primary a {
+    text-decoration: none;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  nav.primary a:hover { color: var(--accent); }
+  .nav-links { display: flex; gap: 30px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .btn-primary { background: var(--fg-strong); color: #fff; box-shadow: var(--shadow-card); }
+  .btn-primary:hover { background: #1e293b; }
+  .btn-accent { background: var(--accent-hover); color: #fff; font-weight: 800; box-shadow: 0 10px 20px -8px rgba(29,78,216,0.5); }
+  .btn-accent:hover { background: #1E40AF; }
+  .btn-ghost { background: #fff; border-color: var(--border); color: var(--fg); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-pill { border-radius: 999px; }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 60px 0 80px; position: relative; overflow: hidden; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero-copy { display: flex; flex-direction: column; gap: 22px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .hero-note {
+    font-size: 0.86rem;
+    color: var(--fg-muted);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  /* Device card (hero visual) */
+  .manifest {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hero);
+    overflow: hidden;
+  }
+  .manifest-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .traffic-dots { display: flex; gap: 6px; }
+  .traffic-dots span { width: 11px; height: 11px; border-radius: 999px; }
+  .traffic-dots span:nth-child(1) { background: #FB7185; }
+  .traffic-dots span:nth-child(2) { background: #FBBF24; }
+  .traffic-dots span:nth-child(3) { background: #34D399; }
+  .manifest-head .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--fg-faint);
+  }
+  .manifest-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .manifest-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border-soft);
+  }
+  .manifest-row-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .manifest-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .manifest-icon svg { width: 17px; height: 17px; }
+  .manifest-text { min-width: 0; }
+  .device-id {
+    font-size: 0.83rem;
+    color: var(--fg-strong);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .device-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--fg-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pill {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+  }
+  .pill-ok { background: var(--ok-soft); color: #059669; border-color: var(--ok-border); }
+  .pill-risk { background: var(--risk-soft); color: #E11D48; border-color: var(--risk-border); }
+  .pill-warn { background: var(--warn-soft); color: #B45309; border-color: #FDE68A; }
+  .manifest-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 4px 20px 20px;
+  }
+  .manifest-stats div {
+    background: var(--bg-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+  }
+  .manifest-stats .stat-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fg-faint);
+  }
+  .manifest-stats .stat-value { font-weight: 800; color: var(--fg-strong); font-size: 0.88rem; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 80px 0; }
+  .section-alt { background: var(--bg-alt); }
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+    max-width: 70ch;
+  }
+  .section-head.center { text-align: center; align-items: center; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+  /* Problem list */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 40px;
+    margin-top: 8px;
+  }
+  @media (max-width: 760px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-item { display: flex; gap: 16px; align-items: flex-start; }
+  .problem-item h3 { font-size: 1.02rem; margin-bottom: 5px; }
+  .problem-item p { color: var(--fg-muted); font-size: 0.95rem; }
+
+  /* Module cards */
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 760px) { .module-grid { grid-template-columns: 1fr; } }
+  .module-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 30px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .module-card:hover {
+    border-color: var(--accent-soft-2);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-4px);
+  }
+  .module-card:hover .icon-badge { background: var(--accent); color: #fff; }
+  .module-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    transition: color 0.3s ease;
+  }
+  .module-card:hover .module-tag { color: var(--accent); }
+  .module-card p { color: var(--fg-muted); font-size: 0.96rem; }
+  .module-card ul {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .step:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+  .step-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--border);
+  }
+  .step h3 { font-size: 1.02rem; }
+  .step p { font-size: 0.92rem; color: var(--fg-muted); }
+
+  /* who it's for */
+  .segments { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .segments { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .segments { grid-template-columns: 1fr; } }
+  .segment {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    background: var(--surface);
+    font-size: 0.92rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .segment:hover { border-color: var(--accent-soft-2); box-shadow: var(--shadow-lift); transform: translateY(-4px); }
+  .segment h3 { font-size: 0.98rem; }
+  .segment p { color: var(--fg-muted); font-size: 0.88rem; }
+
+  /* comparison table */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 0.92rem; background: var(--surface); }
+  th, td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--border-soft); }
+  td:not(:first-child), th:not(:first-child) { text-align: center; }
+  thead th {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    font-weight: 700;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  .mark { display: inline-flex; }
+  .mark svg { width: 19px; height: 19px; }
+  .mark-yes svg { color: var(--ok); }
+  .mark-no svg { color: var(--border); }
+  .mark-some { font-size: 0.82rem; color: var(--fg-muted); font-weight: 600; }
+  th.brand-col, td.brand-col { background: var(--accent-soft); }
+  td.brand-col { font-weight: 700; }
+
+  /* trust */
+  .trust-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+  @media (max-width: 760px) { .trust-list { grid-template-columns: 1fr; } }
+  .trust-item { display: flex; gap: 14px; align-items: flex-start; }
+  .trust-item p { color: var(--fg-muted); font-size: 0.94rem; padding-top: 8px; }
+
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: 0; max-width: 78ch; }
+  details { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  details:first-child { border-top: 1px solid var(--border); }
+  summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--fg-strong);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+";
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  details[open] summary::after { content: "\2212"; }
+  details p { margin-top: 12px; color: var(--fg-muted); max-width: 68ch; font-size: 0.96rem; }
+
+  /* CTA band */
+  .cta-band {
+    background: var(--accent);
+    background-image: linear-gradient(135deg, #2563EB, #1D4ED8);
+    color: #fff;
+    border-radius: 28px;
+    padding: 52px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cta-band h2 { color: #fff; max-width: 34ch; }
+  .cta-band .btn-primary { background: #fff; color: var(--accent-hover); }
+  .cta-band .btn-primary:hover { background: #F1F5F9; }
+  .cta-band .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.4); color: #fff; }
+  .cta-band .btn-ghost:hover { border-color: #fff; }
+
+  footer.site { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 20px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 32px; }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-col h4 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin: 0 0 12px;
+  }
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a { text-decoration: none; color: var(--fg-muted); font-size: 0.92rem; }
+  .footer-col a:hover { color: var(--accent); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 0.84rem;
+    color: var(--fg-faint);
+  }
+</style>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="container nav-row">
+    <a class="wordmark" href="/">laptopfirst</a>
+    <nav class="primary">
+      <div class="nav-links">
+        <a href="#platform">What You Get</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#who-its-for">Who It's For</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a class="btn btn-accent btn-pill" href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer">Book a Demo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow fade-in-up">For Laptop Rental Businesses</p>
+        <h1 class="fade-in-up fade-delay-1">Keep every rented laptop <span style="color:var(--accent)">safe, tracked, and paid for</span></h1>
+        <p class="lede fade-in-up fade-delay-2">One simple app to lock a laptop when someone stops paying, see where all your laptops are, check who you're renting to, and know who owes you money.</p>
+        <div class="hero-actions fade-in-up fade-delay-3">
+          <a class="btn btn-primary" href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer">Book a Demo</a>
+          <a class="btn btn-ghost" href="#platform">See How It Works</a>
+        </div>
+        <p class="hero-note fade-in-up fade-delay-3">
+          <span class="live-dot" aria-hidden="true"></span>
+          Made for laptop rental shops, leasing companies, and anyone who lends out laptops for a monthly fee.
+        </p>
+      </div>
+
+      <div class="manifest" role="img" aria-label="Example screen showing five laptops with the renter's name, plan, and lock status">
+        <div class="manifest-head">
+          <div class="traffic-dots"><span></span><span></span><span></span></div>
+          <span class="label">FLEET REGISTRY</span>
+        </div>
+        <div class="manifest-body">
+          <div class="manifest-row">
+            <div class="manifest-row-left">
+              <div class="manifest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-3h-17L2 19Z"/></svg></div>
+              <div class="manifest-text">
+                <div class="device-id">Q. Alvarez</div>
+                <div class="device-meta">Pro Plan · Month 4 of 12</div>
+              </div>
+            </div>
+            <span class="pill pill-ok">Safe</span>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-row-left">
+              <div class="manifest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-3h-17L2 19Z"/></svg></div>
+              <div class="manifest-text">
+                <div class="device-id">D. Chen</div>
+                <div class="device-meta">Starter Plan · Month 9 of 12</div>
+              </div>
+            </div>
+            <span class="pill pill-ok">Safe</span>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-row-left">
+              <div class="manifest-icon" style="background:var(--risk)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+              <div class="manifest-text">
+                <div class="device-id">R. Osei</div>
+                <div class="device-meta">Pro Plan · 3 days late</div>
+              </div>
+            </div>
+            <span class="pill pill-risk">Locked</span>
+          </div>
+          <div class="manifest-row">
+            <div class="manifest-row-left">
+              <div class="manifest-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-3h-17L2 19Z"/></svg></div>
+              <div class="manifest-text">
+                <div class="device-id">T. Fontaine</div>
+                <div class="device-meta">Team Plan · Month 1 of 6</div>
+              </div>
+            </div>
+            <span class="pill pill-ok">Safe</span>
+          </div>
+        </div>
+        <div class="manifest-stats">
+          <div><span class="stat-label">Laptops</span><span class="stat-value">128</span></div>
+          <div><span class="stat-label">Renters</span><span class="stat-value">112</span></div>
+          <div><span class="stat-label">Locked</span><span class="stat-value">1</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The Problem</p>
+        <h2>Renting out laptops is risky</h2>
+        <p class="lede">Right now you're probably using a notebook, a spreadsheet, and a lot of trust. That's risky when every laptop is worth hundreds of dollars.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-item">
+          <div class="icon-badge icon-badge-risk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-3h-17L2 19Z"/><path d="M9.5 9h.01M14.5 9h.01" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Laptops disappear</h3>
+            <p>Once it leaves your shop, you can't see it, find it, or stop someone from using it.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="icon-badge icon-badge-risk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15 9.3c0-1.3-1.3-2.3-3-2.3s-3 .9-3 2c0 1 .8 1.5 1.9 1.8l2.2.6c1.1.3 1.9.9 1.9 1.9 0 1.2-1.3 2.2-3 2.2s-3-.9-3-2.2"/></svg>
+          </div>
+          <div>
+            <h3>People stop paying</h3>
+            <p>You can't do anything when a customer stops paying, except call them again and again.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="icon-badge icon-badge-risk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.3 16.2c.6-1.7 1.9-2.5 3.2-2.5s2.6.8 3.2 2.5M14.5 9h5M14.5 13h5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>You don't know who you're renting to</h3>
+            <p>Anyone can walk in, sign a paper, and walk out with a laptop.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="icon-badge icon-badge-risk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h9l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M16 3v4h4M9 12h7M9 16h5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3>Your records get messy</h3>
+            <p>Spreadsheets and notebooks are easy to lose and hard to keep up to date.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM / MODULES -->
+  <section id="platform">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">What You Get</p>
+        <h2>Everything you need, in one app</h2>
+        <p class="lede">Four simple tools that all work together, so nothing falls through the cracks.</p>
+      </div>
+      <div class="module-grid">
+        <div class="module-card">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="14.5" r="1.4" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <span class="module-tag">Lock &amp; Find</span>
+          <h3>Lock a laptop from anywhere</h3>
+          <p>If someone stops paying or won't give it back, lock their laptop with one tap.</p>
+          <ul>
+            <li>Lock it in seconds</li>
+            <li>See it on a map</li>
+            <li>Wipe it clean if needed</li>
+          </ul>
+        </div>
+        <div class="module-card">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20l-1.5-3h-17L2 19Z"/></svg>
+          </div>
+          <span class="module-tag">Track Your Laptops</span>
+          <h3>Know where every laptop is</h3>
+          <p>See every laptop you own, who has it, and what shape it's in.</p>
+          <ul>
+            <li>One list of all your laptops</li>
+            <li>See who has each one</li>
+            <li>Track damage and repairs</li>
+          </ul>
+        </div>
+        <div class="module-card">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.3 16.2c.6-1.7 1.9-2.5 3.2-2.5s2.6.8 3.2 2.5M14.5 9h5M14.5 13h5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="module-tag">Check Renters</span>
+          <h3>Know who you're renting to</h3>
+          <p>Check a customer's ID before you hand over a laptop.</p>
+          <ul>
+            <li>Scan their ID and address</li>
+            <li>They sign on their phone</li>
+            <li>Spot risky renters early</li>
+          </ul>
+        </div>
+        <div class="module-card">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 9h18M8 3v4M16 3v4" stroke-linecap="round"/><path d="M9.8 13.5c0-.9.9-1.5 2.2-1.5s2.2.6 2.2 1.4c0 .7-.7 1.1-1.5 1.3l-1.4.4c-.8.2-1.5.6-1.5 1.3 0 .8 1 1.4 2.2 1.4s2.2-.5 2.2-1.3" stroke-linecap="round"/></svg>
+          </div>
+          <span class="module-tag">Payments &amp; Plans</span>
+          <h3>See who owes you money</h3>
+          <p>See every customer's plan and payment status at a glance.</p>
+          <ul>
+            <li>See which laptop is on which plan</li>
+            <li>Get alerts when payment is late</li>
+            <li>Auto-locks if they don't pay</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">How It Works</p>
+        <h2>From handoff to renewal, in four steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-top">
+            <div class="icon-badge icon-badge-solid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.3 16.2c.6-1.7 1.9-2.5 3.2-2.5s2.6.8 3.2 2.5M14.5 9h5M14.5 13h5" stroke-linecap="round"/></svg>
+            </div>
+            <span class="step-num">01</span>
+          </div>
+          <h3>Check</h3>
+          <p>Make sure your customer is really who they say they are.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="icon-badge icon-badge-solid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10 6 5h12l3 5M3 10v8a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8M3 10h18M9 14h6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="step-num">02</span>
+          </div>
+          <h3>Hand it over</h3>
+          <p>Match the laptop to their plan, then give it to them.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="icon-badge icon-badge-solid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <span class="step-num">03</span>
+          </div>
+          <h3>Watch</h3>
+          <p>Keep an eye on the laptop and their payments.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <div class="icon-badge icon-badge-solid">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="14.5" r="1.4" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <span class="step-num">04</span>
+          </div>
+          <h3>Lock or renew</h3>
+          <p>If they stop paying, lock it. If all is well, renew their plan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section-alt" id="who-its-for">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Who It's For</p>
+        <h2>Perfect for anyone renting out laptops</h2>
+      </div>
+      <div class="segments">
+        <div class="segment">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9 4 4h16l1 5M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9M4 9h16M9 20v-5h6v5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Laptop rental shops</h3>
+          <p>Renting laptops by the day, month, or year.</p>
+        </div>
+        <div class="segment">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Office leasing companies</h3>
+          <p>Giving laptops to other businesses on a plan.</p>
+        </div>
+        <div class="segment">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11A8 8 0 0 0 6.3 6.3M4 13a8 8 0 0 0 13.7 4.7" stroke-linecap="round"/><path d="M4 4v5h5M20 20v-5h-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Refurbished laptop sellers</h3>
+          <p>Renting fixed-up laptops instead of selling them.</p>
+        </div>
+        <div class="segment">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7.5" cy="7.5" r="2.3"/><circle cx="16.5" cy="16.5" r="2.3"/><path d="M18 6 6 18" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Pay-over-time sellers</h3>
+          <p>Selling laptops in monthly payments, not all at once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section>
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Why Not Just Use...</p>
+        <h2>Other apps only do half the job</h2>
+        <p class="lede">A lock app can't see your payments. A spreadsheet can't lock a laptop. LaptopFirst does everything together.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>What you need</th>
+              <th>Lock apps</th>
+              <th>Spreadsheets</th>
+              <th class="brand-col">LaptopFirst</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lock a laptop from far away</td>
+              <td><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td class="brand-col"><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <td>Track all your laptops</td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+              <td class="brand-col"><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <td>Check who you're renting to</td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td class="brand-col"><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <td>See who owes you money</td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td><span class="mark-some">Sort of</span></td>
+              <td class="brand-col"><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+            <tr>
+              <td>Lock it automatically if they don't pay</td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td><span class="mark mark-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></span></td>
+              <td class="brand-col"><span class="mark mark-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY / TRUST -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Keeping Things Safe</p>
+        <h2>Your customers' information stays safe</h2>
+        <p class="lede">We know you're trusting us with private information. Here's how we look after it.</p>
+      </div>
+      <div class="trust-list">
+        <div class="trust-item">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          </div>
+          <p>All information is locked up and scrambled, so no one else can read it.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+          </div>
+          <p>Only the right people on your team can see private customer details.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6l-8-3Z"/></svg>
+          </div>
+          <p>We keep a record of every lock, unlock, and ID check, so you always know what happened.</p>
+        </div>
+        <div class="trust-item">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M8 7V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" stroke-linecap="round"/></svg>
+          </div>
+          <p>Old customer files don't stick around forever. You control how long we keep them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions from rental businesses</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>What is MDM? Do I really need it?</summary>
+          <p>MDM stands for Mobile Device Management. It just means you can lock, find, or wipe a laptop from far away, using your phone or computer. If you rent out laptops, this is how you keep them safe.</p>
+        </details>
+        <details>
+          <summary>Can I lock a laptop if someone stops paying?</summary>
+          <p>Yes. If a customer misses a payment, you can lock their laptop with one click. They'll see a message telling them to pay you. Once they pay, it unlocks by itself.</p>
+        </details>
+        <details>
+          <summary>How do I check if a customer is real before renting to them?</summary>
+          <p>Before you hand over a laptop, the customer uploads their ID and proof of address. We check that it's real. They also sign your rental agreement right on their phone, so you're not guessing who you're dealing with.</p>
+        </details>
+        <details>
+          <summary>What if a customer doesn't give the laptop back?</summary>
+          <p>You can see the last place the laptop connected to the internet, and lock it right away. This makes it much easier to get your laptop back without going to court.</p>
+        </details>
+        <details>
+          <summary>Does this work for both Windows laptops and MacBooks?</summary>
+          <p>Yes. Whether your laptops are Windows or Mac, you manage all of them from the same simple screen.</p>
+        </details>
+        <details>
+          <summary>How is this different from other apps?</summary>
+          <p>Most apps only do one job: one locks laptops, another tracks who has them, another handles payments. LaptopFirst does all three together, so when someone stops paying, their laptop locks automatically — no extra work for you.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="demo">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Ready to keep every laptop safe?</h2>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://cal.com/laptopfirst" target="_blank" rel="noopener noreferrer">Book a Demo</a>
+          <a class="btn btn-ghost" href="mailto:hello@laptopfirst.io">Talk to Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="wordmark" href="#top">laptopfirst</a>
+        <p class="lede" style="margin-top:12px; font-size:0.9rem;">One simple app for laptop rental businesses — lock laptops, track them, check renters, and see who owes you money.</p>
+      </div>
+      <div class="footer-col">
+        <h4>What You Get</h4>
+        <ul>
+          <li><a href="#platform">Lock &amp; Find</a></li>
+          <li><a href="#platform">Track Your Laptops</a></li>
+          <li><a href="#platform">Check Renters</a></li>
+          <li><a href="#platform">Payments &amp; Plans</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#who-its-for">Who It's For</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="mailto:hello@laptopfirst.io">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 LaptopFirst. All rights reserved.</span>
+      <span>Laptop rental app · Remote lock · Laptop tracking · Renter ID checks</span>
+    </div>
+  </div>
+</footer>
